@@ -1,5 +1,12 @@
 #BlueJ class context
-comment0.params=
-comment0.target=void\ act()
-comment0.text=\r\n\ Act\ -\ do\ whatever\ the\ Fighter\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
-numComments=1
+comment0.params=inUse
+comment0.target=Fighter(boolean)
+comment1.params=
+comment1.target=void\ act()
+comment2.params=
+comment2.target=void\ moveLeft()
+comment3.params=
+comment3.target=void\ moveRight()
+comment4.params=
+comment4.target=void\ jump()
+numComments=5
