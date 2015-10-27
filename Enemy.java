@@ -1,4 +1,9 @@
-import greenfoot.Actor;
+import greenfoot.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Write a description of class Enemy here.
@@ -8,27 +13,30 @@ import greenfoot.Actor;
  */
 public class Enemy extends Actor {
 
-    private int xFinal;
-    private int yFinal;
+   private int xFinal;
+   private int yFinal;
+   private ArrayList<Enemy> enemyList;
+   private int angle;
 
-    public Enemy(int xFinal, int yFinal) {
-        this.xFinal = xFinal;
-        this.yFinal = yFinal;
-    }
+   public Enemy(int xFinal, int yFinal) {
+      this.xFinal = xFinal;
+      this.yFinal = yFinal;
+      enemyList = new ArrayList<Enemy>();
+      angle = 0;
 
-    /**
-     * Act - do whatever the Enemy wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() {
-        // Add your action code here.
-    }
 
-    public int getxFinal() {
-        return xFinal;
-    }
+   }
 
-    public int getyFinal() {
-        return yFinal;
-    }
+   public void act() {
+      enemyList.get(0).setLocation(this.getX() + 5, this.getY());
+
+   }
+
+   public int getxFinal() {
+      return xFinal;
+   }
+
+   public int getyFinal() {
+      return yFinal;
+   }
 }

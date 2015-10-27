@@ -1,5 +1,10 @@
 import greenfoot.*;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Write a description of class GalagaWorld here.
@@ -9,42 +14,80 @@ import java.util.ArrayList;
  */
 public class GalagaWorld extends World {
 
-   GreenfootImage background;
-   ArrayList<Enemy> enemyList;
-
+   private Score score;
+   private GreenfootImage background;
+   private int level;
+   private ArrayList<Enemy> enemyList;
 
    public GalagaWorld() {
-      // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-      super(2200, 1400, 1);
+      super(1120, 1440, 1, false);
       background = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\galaga-background.png");
       setBackground(background);
-      for (int i = 0; i < 400; i++) {
-         addObject(new Star(), Greenfoot.getRandomNumber(this.getWidth()), Greenfoot.getRandomNumber(this.getHeight()));
-      }
-
-      enemyList = new ArrayList<>();
-      createEnemies();
+      level = 1;
+      createStarsAtRandom();
 
       addObject(new Fighter(true), this.getWidth() / 2, this.getHeight() - 195);
       addObject(new Fighter(false), 70, this.getHeight() - 70);
       addObject(new Fighter(false), 195, this.getHeight() - 70);
+      createScore();
+      addObject(new BossEnemy(400, 400), 0, 1000);
 
-   }
-
-   private void createEnemies() {
-      enemyList.add(new BossEnemy(this.getWidth() / 4, this.getHeight() / 2));
-      enemyList.add(new BossEnemy(this.getWidth() / 2, this.getHeight() / 2));
-      enemyList.add(new BossEnemy(this.getWidth() * 3 / 4, this.getHeight() / 2));
-      //enemyList.add(new BossEnemy());
-
-
+      enemyList = new ArrayList<Enemy>();
+      try {
+         createEnemiesFromFile();
+      } catch (FileNotFoundException e) {
+      }
       for (Enemy e : enemyList)
          addObject(e, e.getxFinal(), e.getyFinal());
    }
 
-   public void act(){
+   public void act() {
+      createScore();
+   }
+
+   private void createEnemiesFromFile() throws FileNotFoundException {
+      Scanner file = new Scanner(new File("Stage_1"));
+
+      while (file.hasNextLine()) {
+         String type = file.next();
+         int x = Integer.parseInt(file.next());
+         int y = Integer.parseInt(file.next());
+
+         if (type.equals("BossEnemy")) {
+            enemyList.add(new BossEnemy(x, y));
+         } else if (type.equals("RedEnemy")) {
+            enemyList.add(new RedEnemy(x, y));
+         } else if (type.equals("YellowEnemy")) {
+            enemyList.add(new YellowEnemy(x, y));
+         }
+      }
 
    }
 
+   private void createStarsAtRandom() {
+      for (int i = 0; i < 400; i++) {
+         addObject(new Star(), Greenfoot.getRandomNumber(this.getWidth()), 100 + Greenfoot.getRandomNumber(this.getHeight() - 242));
+      }
+   }
+
+   private void createScore() {
+      GreenfootImage bg = getBackground();
+      bg.setColor(Color.RED);
+      bg.setFont(new Font("OCR A Extended", Font.BOLD, 60));
+      bg.drawString("1UP", 40, 60);
+      bg.setColor(Color.WHITE);
+      bg.setFont(new Font("OCR A Extended", Font.PLAIN, 40));
+      bg.drawString("225", 60, 100);
+      bg.setColor(Color.RED);
+      bg.setFont(new Font("OCR A Extended", Font.BOLD, 60));
+      bg.drawString("HIGH SCORE", this.getWidth() / 2 - 225, 60);
+      bg.setColor(Color.WHITE);
+      bg.setFont(new Font("OCR A Extended", Font.PLAIN, 40));
+      bg.drawString("20000", this.getWidth() / 2 - 110, 100);
+   }
+
+   private void gameOver() {
+      Greenfoot.stop();
+   }
 
 }

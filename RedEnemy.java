@@ -1,3 +1,5 @@
+import greenfoot.GreenfootImage;
+
 /**
  * Write a description of class RedEnemy here.
  *
@@ -6,14 +8,15 @@
  */
 public class RedEnemy extends Enemy {
 
+   final GreenfootImage RedEnemy;
+
    public RedEnemy(int xFinal, int yFinal) {
       super(xFinal, yFinal);
+      RedEnemy = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\RedEnemy.png");
+      RedEnemy.scale(100, 100);
+      setImage(RedEnemy);
    }
 
-   /**
-    * Act - do whatever the RedEnemy wants to do. This method is called whenever
-    * the 'Act' or 'Run' button gets pressed in the environment.
-    */
    public void act() {
       // Add your action code here.
    }

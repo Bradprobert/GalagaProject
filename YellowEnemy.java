@@ -1,3 +1,5 @@
+import greenfoot.GreenfootImage;
+
 /**
  * Write a description of class YellowEnemy here.
  *
@@ -6,8 +8,15 @@
  */
 public class YellowEnemy extends Enemy {
 
+   GreenfootImage yellowEnemy;
+
    public YellowEnemy(int xFinal, int yFinal) {
       super(xFinal, yFinal);
+
+      yellowEnemy = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\YellowEnemy.png");
+      yellowEnemy.scale(100, 100);
+      setImage(yellowEnemy);
+
    }
 
    /**

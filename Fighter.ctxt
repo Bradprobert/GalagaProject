@@ -1,12 +1,17 @@
 #BlueJ class context
 comment0.params=inUse
 comment0.target=Fighter(boolean)
+comment0.text=\r\n\ Constructor\ for\ the\ fighter\ class\ to\ create\ a\ new\ fighter\r\n\r\n\ @param\ inUse\r\n
 comment1.params=
 comment1.target=void\ act()
+comment1.text=\r\n\ allows\ the\ fighter\ to\ move\ around\ the\ screen\r\n
 comment2.params=
 comment2.target=void\ moveLeft()
+comment2.text=\r\n\ Will\ move\ the\ fighter\ left\ across\ the\ screen\ when\ the\ left\ arrow\ key\ is\ pressed\ down.\r\n
 comment3.params=
 comment3.target=void\ moveRight()
+comment3.text=\r\n\ Will\ move\ the\ fighter\ right\ across\ the\ screen\ when\ the\ right\ arrow\ key\ is\ pressed\ down.\r\n
 comment4.params=
 comment4.target=void\ jump()
+comment4.text=\r\n\ will\ move\ the\ fighter\ up\ and\ down\ with\ a\ parabolic\ path.\r\n
 numComments=5
