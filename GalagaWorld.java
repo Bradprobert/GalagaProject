@@ -17,6 +17,7 @@ public class GalagaWorld extends World {
    private Score score;
    private GreenfootImage background;
    private int level;
+   private int speed;
    private ArrayList<Enemy> enemyList;
 
    public GalagaWorld() {
@@ -30,15 +31,14 @@ public class GalagaWorld extends World {
       addObject(new Fighter(false), 70, this.getHeight() - 70);
       addObject(new Fighter(false), 195, this.getHeight() - 70);
       createScore();
-      addObject(new BossEnemy(400, 400), 0, 1000);
-
+      speed = 20;
       enemyList = new ArrayList<Enemy>();
       try {
          createEnemiesFromFile();
       } catch (FileNotFoundException e) {
       }
       for (Enemy e : enemyList)
-         addObject(e, e.getxFinal(), e.getyFinal());
+         addObject(e, 0, 1100);
    }
 
    public void act() {
@@ -54,11 +54,11 @@ public class GalagaWorld extends World {
          int y = Integer.parseInt(file.next());
 
          if (type.equals("BossEnemy")) {
-            enemyList.add(new BossEnemy(x, y));
+            enemyList.add(new BossEnemy(x, y, speed));
          } else if (type.equals("RedEnemy")) {
-            enemyList.add(new RedEnemy(x, y));
+            enemyList.add(new RedEnemy(x, y, speed));
          } else if (type.equals("YellowEnemy")) {
-            enemyList.add(new YellowEnemy(x, y));
+            enemyList.add(new YellowEnemy(x, y, speed));
          }
       }
 

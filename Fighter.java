@@ -33,11 +33,19 @@ public class Fighter extends Actor {
    public void act() {
       moveLeft();
       moveRight();
-      if (inUse && Greenfoot.isKeyDown("up")) {
-         jump();
-      } else if (inUse) {
-         setLocation(this.getX(), getWorld().getHeight() - 195);
-         initialYVelocity = -20;
+      moveUp();
+      moveDown();
+   }
+
+   private void moveUp() {
+      if (Greenfoot.isKeyDown("up") && inUse) {
+         setLocation(this.getX(), this.getY() - 10);
+      }
+   }
+
+   private void moveDown() {
+      if (Greenfoot.isKeyDown("down") && inUse) {
+         setLocation(this.getX(), this.getY() + 10);
       }
    }
 
@@ -57,14 +65,6 @@ public class Fighter extends Actor {
       if (Greenfoot.isKeyDown("right") && inUse) {
          setLocation(this.getX() + 10, this.getY());
       }
-   }
-
-   /**
-    * will move the fighter up and down with a parabolic path.
-    */
-   public void jump() {
-      initialYVelocity += 0.5;
-      setLocation(this.getX(), this.getY() + (int) initialYVelocity);
    }
 }
 
