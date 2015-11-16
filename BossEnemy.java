@@ -1,4 +1,8 @@
+import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
+
+import java.util.Timer;
+import java.util.concurrent.Delayed;
 
 /**
  * Write a description of class BossEnemy here.
@@ -9,10 +13,11 @@ import greenfoot.GreenfootImage;
 public class BossEnemy extends Enemy {
 
    private GreenfootImage bossEnemy;
+   public int count = 0;
 
-   public BossEnemy(int xFinal, int yFinal, int speed) {
+   public BossEnemy(int xFinal, int yFinal, int speed, int spawnGroup) {
       super(xFinal, yFinal);
-      bossEnemy = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\BossEnemy1.png");
+      bossEnemy = new GreenfootImage("BossEnemy1.png");
       bossEnemy.scale(100, 100);
       setImage(bossEnemy);
 
@@ -23,16 +28,26 @@ public class BossEnemy extends Enemy {
       initialVy = 0;
       finalVx = 0;
       finalVy = speed;
+      cycles = spawnGroup * super.cycles;
 
       setAccelerationX();
       setAccelerationY();
       setRotation(0);
+      makeBgTransparent();
+
    }
 
    public void act() {
-      moveLeftThenTurnUp();
-      setFinalPosition();
+      if (cycles != 0) {
+         cycles--;
+      } else {
+         moveLeftThenTurnUp();
+         setFinalPosition();
+      }
+      makeInvisible();
+      if (Greenfoot.getRandomNumber(1000) < 1) {
+         fire();
+      }
    }
-
 
 }

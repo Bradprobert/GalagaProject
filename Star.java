@@ -12,7 +12,7 @@ public class Star extends Actor {
    GreenfootImage star;
 
    public Star() {
-      star = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\star.png");
+      star = new GreenfootImage("star.png");
       star.scale(3, 3);
       addDepthToStars();
       colorStars();

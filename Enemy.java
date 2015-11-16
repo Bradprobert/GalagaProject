@@ -1,9 +1,6 @@
-import greenfoot.*;
+import greenfoot.Actor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.*;
 
 /**
  * Write a description of class Enemy here.
@@ -23,10 +20,12 @@ public class Enemy extends Actor {
    protected int initialVy;
    protected double accelerationY;
    protected double accelerationX;
+   protected int cycles;
 
    public Enemy(int xFinal, int yFinal) {
       this.xFinal = xFinal;
       this.yFinal = yFinal;
+      cycles = 100;
    }
 
    public void act() {
@@ -72,11 +71,38 @@ public class Enemy extends Actor {
       }
    }
 
+   protected void makeBgTransparent() {
+      for (int i = 0; i < this.getImage().getWidth(); i++) {
+         for (int j = 0; j < this.getImage().getHeight(); j++) {
+            Color color = this.getImage().getColorAt(i, j);
+            if (color.equals(new Color(0, 0, 0))) {
+               this.getImage().setColorAt(i, j, new Color(0, 0, 0, 0));
+            }
+         }
+      }
+   }
+
+   protected void makeInvisible() {
+      if (this.getX() == 0) {
+         this.getImage().setTransparency(0);
+      } else {
+         this.getImage().setTransparency(255);
+      }
+   }
+
    public int getxFinal() {
       return xFinal;
    }
 
    public int getyFinal() {
       return yFinal;
+   }
+
+   protected void fire() {
+      if (getOneObjectAtOffset(0, 100, Enemy.class) == null) {
+         EnemyBullet b = new EnemyBullet();
+         getWorld().addObject(b, getX(), getY());
+         b.setRotation(270);
+      }
    }
 }

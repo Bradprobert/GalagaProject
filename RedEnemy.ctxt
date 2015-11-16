@@ -1,6 +1,8 @@
 #BlueJ class context
-comment0.params=xFinal\ yFinal
-comment0.target=RedEnemy(int,\ int)
+comment0.params=xFinal\ yFinal\ speed
+comment0.target=RedEnemy(int,\ int,\ int)
 comment1.params=
 comment1.target=void\ act()
-numComments=2
+comment2.params=
+comment2.target=void\ fire()
+numComments=3

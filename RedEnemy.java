@@ -1,3 +1,4 @@
+import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 
 /**
@@ -10,9 +11,9 @@ public class RedEnemy extends Enemy {
 
    final GreenfootImage RedEnemy;
 
-   public RedEnemy(int xFinal, int yFinal, int speed) {
+   public RedEnemy(int xFinal, int yFinal, int speed, int spawnGroup) {
       super(xFinal, yFinal);
-      RedEnemy = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\RedEnemy.png");
+      RedEnemy = new GreenfootImage("RedEnemy.png");
       RedEnemy.scale(100, 100);
       setImage(RedEnemy);
 
@@ -23,14 +24,25 @@ public class RedEnemy extends Enemy {
       initialVy = 0;
       finalVx = 0;
       finalVy = speed;
+      cycles = spawnGroup * super.cycles;
 
       setAccelerationX();
       setAccelerationY();
       setRotation(0);
+      makeBgTransparent();
    }
 
    public void act() {
-      moveLeftThenTurnUp();
-      setFinalPosition();
+      if (cycles != 0) {
+         cycles--;
+      } else {
+         moveLeftThenTurnUp();
+         setFinalPosition();
+      }
+      makeInvisible();
+      if (Greenfoot.getRandomNumber(1000) < 1) {
+         fire();
+      }
    }
+
 }

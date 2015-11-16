@@ -1,5 +1,7 @@
 import greenfoot.*;
 
+import java.awt.*;
+
 /**
  * Write a description of class Fighter here.
  *
@@ -10,9 +12,7 @@ public class Fighter extends Actor {
 
    private GreenfootImage fighter;
    private boolean inUse;
-   private static final float GRAVITY = 0.5f;
-   private float initialYVelocity;
-   int initialY;
+   private int count = 0;
 
    /**
     * Constructor for the fighter class to create a new fighter
@@ -21,10 +21,9 @@ public class Fighter extends Actor {
     */
    public Fighter(boolean inUse) {
       this.inUse = inUse;
-      fighter = new GreenfootImage("C:\\Users\\Bradley\\Desktop\\ENGR 1110\\Project\\Galaga\\images\\fighter.png");
+      fighter = new GreenfootImage("fighter.png");
       setImage(fighter);
-      initialYVelocity = -20;
-      initialY = 1205;
+      makeBgTransparent();
    }
 
    /**
@@ -33,19 +32,14 @@ public class Fighter extends Actor {
    public void act() {
       moveLeft();
       moveRight();
-      moveUp();
-      moveDown();
+      spacebarFire();
    }
 
-   private void moveUp() {
-      if (Greenfoot.isKeyDown("up") && inUse) {
-         setLocation(this.getX(), this.getY() - 10);
-      }
-   }
-
-   private void moveDown() {
-      if (Greenfoot.isKeyDown("down") && inUse) {
-         setLocation(this.getX(), this.getY() + 10);
+   public void spacebarFire() {
+      int count = 0;
+      if ("space".equals(Greenfoot.getKey()) && inUse) {
+         fire();
+         count++;
       }
    }
 
@@ -54,7 +48,7 @@ public class Fighter extends Actor {
     */
    public void moveLeft() {
       if (Greenfoot.isKeyDown("left") && inUse) {
-         setLocation(this.getX() - 10, this.getY());
+         setLocation(this.getX() - 15, this.getY());
       }
    }
 
@@ -63,8 +57,37 @@ public class Fighter extends Actor {
     */
    public void moveRight() {
       if (Greenfoot.isKeyDown("right") && inUse) {
-         setLocation(this.getX() + 10, this.getY());
+         setLocation(this.getX() + 15, this.getY());
       }
+   }
+
+   public boolean getInUse() {
+      return inUse;
+   }
+
+   public void setInUse(boolean inUse) {
+      this.inUse = inUse;
+
+      if (count == 0)
+         this.setLocation(1120 / 2, 1440 - 195);
+      count++;
+   }
+
+   private void makeBgTransparent() {
+      for (int i = 0; i < this.getImage().getWidth(); i++) {
+         for (int j = 0; j < this.getImage().getHeight(); j++) {
+            Color color = this.getImage().getColorAt(i, j);
+            if (color.equals(new Color(0, 0, 0))) {
+               this.getImage().setColorAt(i, j, new Color(0, 0, 0, 0));
+            }
+         }
+      }
+   }
+
+   private void fire() {
+      FighterBullet b = new FighterBullet();
+      getWorld().addObject(b, getX(), getY());
+      b.setRotation(270);
    }
 }
 
